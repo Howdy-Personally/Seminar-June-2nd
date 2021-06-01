@@ -1,14 +1,17 @@
 # Seminr-June-2nd
-## Introduction
 
 ## content
-* NLP中要引入Transformer的原因
-* Visual in Transformer
-* Detection Transformer
-* 我的工作
+### 一、NLP Transformer
+### 二、Visual Transformer
+### 三、Detection Transformer
+### 四、My Work
 
-### 一、NLP中要引入Transformer的原因
-### 二、Visual in Transformer
+
+## Introduction
+#### 1. NLP Transformer
+Transformer由论文《Attention is All You Need》提出
+![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/TheTransformerModelArchitecture.png)
+### 二、Visual Transformer
 ### 三、Detection Transformer
 ### 四、我的工作
-![avater](https://github.com/Howdy-Personally/tips_of_wikidata/blob/main/pic/pitem.png)
+
