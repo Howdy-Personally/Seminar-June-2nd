@@ -29,6 +29,7 @@ self attention帮助编码器在对每个单词编码时关注输入句子的其
 注意力机制是发生在编码器和解码器之间，也可以说是发生在输入句子和生成句子之间。而自注意力模型中的自注意力机制则发生在输入序列内部，或者输出序列内部，可以抽取到同一个句子内间隔较远的单词之间的联系，比如句法特征
 解释一下什么是自注意力机制self attention
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/attention.gif)
+
 这篇解读来源于 https://blog.csdn.net/longxinchen_ml/article/details/86533005
 
 ### 二、Vision Transformer
@@ -41,19 +42,29 @@ ViT舍弃了CNN的归纳偏好问题，更加有利于在超大规模数据上�
 DETR使用set loss function作为监督信号来进行端到端训练，然后同时预测所有目标，其中set loss function使用bipartite matching算法将pred目标和gt目标匹配起来。直接将目标检测任务看成set prediction问题，使训练过程变的简洁，并且避免了anchor、NMS等复杂处理。
 
 DETR主要有两个部分：architecture和set prediction loss
-#### 1.Architecture
+### 1.Architecture
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/detrstruct.png)
-DETR先用CNN将输入图像embedding成一个二维表征，然后将二维表征转换成一维表征并结合positional encoding一起送入encoder，decoder将少量固定数量的已学习的object queries(可以理解为positional embeddings)和encoder的输出作为输入。最后将decoder得到的每个output embdding传递到一个共享的前馈网络(FFN)，该网络可以预测一个检测结果(包括类和边框)或着“没有目标”的类。
-##### 1.1 Transformer
+### 1.1 Transformer
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic10.jpg)
-##### 1.1.1 Encoder
+### 1.1.1 Encoder
 将Backbone输出的feature map转换成一维表征，得到 特征图，然后结合positional encoding作为Encoder的输入。每个Encoder都由Multi-Head Self-Attention和FFN组成。
 和Transformer Encoder不同的是，因为Encoder具有位置不变性，DETR将positional encoding添加到每一个Multi-Head Self-Attention中，来保证目标检测的位置敏感性。
-##### 1.1.2 Decoder
+### 1.1.2 Decoder
 因为Decoder也具有位置不变性，Decoder的N个object query(可以理解为学习不同object的positional embedding)必须是不同，以便产生不同的结果，并且同时把它们添加到每一个Multi-Head Attention中。N个object queries通过Decoder转换成一个output embedding，然后output embedding通过FFN独立解码N个预测结果，包含box和class。对输入embedding同时使用Self-Attention和Encoder-Decoder Attention，模型可以利用目标的相互关系来进行全局推理。
 和Transformer Decoder不同的是，DETR的每个Decoder并行输出N个对象，Transformer Decoder使用的是自回归模型，串行输出N个对象，每次只能预测一个输出序列的一个元素。
-##### 1.1.3 FFN
+### 1.1.3 FFN
 FFN由3层perceptron和一层linear projection组成。FFN预测出box的归一化中心坐标、长、宽和class。
 DETR预测的是固定数量的N个box的集合，并且N通常比实际目标数要大的多，所以使用一个额外的空类来表示预测得到的box不存在目标。
-### 四、我的工作
+### 2
+### 2.2 主流的目标检测算法
+Yolov5中采用其中的GIOU_Loss做Bounding box的损失函数。
+GIoU = IoU - |Ac-U|/Ac
+
+用图片来进行理解就是：
+![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/giou.png)
+* 两个框的最小闭包区域面积 = 红色矩形面积
+* IoU = 黄色框和蓝色框的交集 / 并集
+* 闭包区域中不属于两个框的区域占闭包区域的比重 = 蓝色面积 / 红色矩阵面积
+* GIoU = IoU - 比重
+### 四、总结
 感觉DETR更重要的意义应当是让NLP任务和CV任务之间的协同融合变得更加值得期待，倒不是建立了更有效的目标检测新范式。主流的目标检测算法可以说是一种分类任务，而transfomer将目标检测任务转化为一个序列预测的任务，使用transformer编码-解码器结构和双边匹配的方法，由输入图像直接得到预测结果序列。
