@@ -37,7 +37,7 @@ self attention帮助编码器在对每个单词编码时关注输入句子的其
 
 然后肯定有人想问注意力机制和自注意力机制的区别
 注意力机制是发生在编码器和解码器之间，也可以说是发生在输入句子和生成句子之间。而自注意力模型中的自注意力机制则发生在输入序列内部，或者输出序列内部，可以抽取到同一个句子内间隔较远的单词之间的联系，比如句法特征
-解释一下什么是自注意力机制self attention
+解释一下什么是注意力机制attention
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/attention.gif)
 
 这篇解读来源于 https://blog.csdn.net/longxinchen_ml/article/details/86533005
