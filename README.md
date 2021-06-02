@@ -64,7 +64,10 @@ DETR主要有两个部分：architecture和set prediction loss
 ### 1.1.3 FFN
 FFN由3层perceptron和一层linear projection组成。FFN预测出box的归一化中心坐标、长、宽和class。
 DETR预测的是固定数量的N个box的集合，并且N通常比实际目标数要大的多，所以使用一个额外的空类来表示预测得到的box不存在目标。
-### 2
+
+第二个是设计了二分图匹配和匈牙利算法，基于预测的boxex和ground truth boxes的二分图匹配计算loss的大小，从而使得预测的box的位置和类别更接近于ground truth.
+### 2.1 DETR
+
 ### 2.2 主流的目标检测算法
 Yolov5中采用其中的GIOU_Loss做Bounding box的损失函数。
 GIoU = IoU - |Ac-U|/Ac
@@ -75,5 +78,10 @@ GIoU = IoU - |Ac-U|/Ac
 * IoU = 黄色框和蓝色框的交集 / 并集
 * 闭包区域中不属于两个框的区域占闭包区域的比重 = 蓝色面积 / 红色矩阵面积
 * GIoU = IoU - 比重
+* 
+目标检测的过程中在同一目标的位置上会产生大量的候选框，这些候选框相互之间可能会有重叠，此时我们需要利用非极大值抑制找到最佳的目标边界框，消除冗余的边界框
+
+![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic11.png)
+人脸检测的候选框结果，每个边界框有一个置信度得分(confidence score)
 ### 四、总结
 感觉DETR更重要的意义应当是让NLP任务和CV任务之间的协同融合变得更加值得期待。主流的目标检测算法可以说是一种分类任务，而transfomer将目标检测任务转化为一个序列预测的任务，使用transformer编码-解码器结构和双边匹配的方法，由输入图像直接得到预测结果序列。
