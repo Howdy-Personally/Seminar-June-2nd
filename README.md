@@ -16,15 +16,25 @@ Transformer改进了RNN最被人诟病的训练慢的缺点，利用self-attenti
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/TheTransformerModelArchitecture.png)
 #### 从宏观的视角开始
 在机器翻译中，就是输入一种语言，输出另一种语言。
+
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic1.jpg)
+
 transformer这个黑箱，是由编码组件、解码组件和它们之间的连接组成。
+
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic2.jpg)
+
 编码组件部分由一堆encoder构成。解码组件部分也是由相同数量的decoder组成的。
+
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic3.jpg)
+
 每个解码器都可以分解成两个子层，self attention和feed forward neural network
+
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic4.jpg)
+
 self attention帮助编码器在对每个单词编码时关注输入句子的其他单词，编码器中还有一个注意力层，用来关注输入句子的相关部分。
+
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic5.jpg)
+
 然后肯定有人想问注意力机制和自注意力机制的区别
 注意力机制是发生在编码器和解码器之间，也可以说是发生在输入句子和生成句子之间。而自注意力模型中的自注意力机制则发生在输入序列内部，或者输出序列内部，可以抽取到同一个句子内间隔较远的单词之间的联系，比如句法特征
 解释一下什么是自注意力机制self attention
@@ -36,7 +46,7 @@ self attention帮助编码器在对每个单词编码时关注输入句子的其
 ViT将Transformer巧妙的应用于图像分类任务，更少计算量下性能跟SOTA相当。
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic9.jpg)
 ViT将输入图片拆分成16x16个patches，每个patch做一次线性变换降维同时嵌入位置信息，然后送入Transformer，避免了像素级attention的运算。类似BERT[class]标记位的设置，ViT在Transformer输入序列前增加了一个额外可学习的[class]标记位，并且该位置的Transformer Encoder输出作为图像特征。
-ViT舍弃了CNN的归纳偏好问题，更加有利于在超大规模数据上学习知识，即大规模训练优归纳偏好，在众多图像分类任务上直逼SOTA(state of the art)。
+ViT舍弃了CNN的归纳偏好问题，更加有利于在超大规模数据上学习知识，即大规模训练优归纳偏好，在众多图像分类任务上直逼SOTA。
 
 ### 三、Detection Transformer
 DETR使用set loss function作为监督信号来进行端到端训练，然后同时预测所有目标，其中set loss function使用bipartite matching算法将pred目标和gt目标匹配起来。直接将目标检测任务看成set prediction问题，使训练过程变的简洁，并且避免了anchor、NMS等复杂处理。
