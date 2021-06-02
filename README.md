@@ -4,7 +4,6 @@
 ### 一、NLP Transformer
 ### 二、Vision Transformer
 ### 三、Detection Transformer
-### 四、My Work
 
 
 ## Introduction
@@ -77,4 +76,4 @@ GIoU = IoU - |Ac-U|/Ac
 * 闭包区域中不属于两个框的区域占闭包区域的比重 = 蓝色面积 / 红色矩阵面积
 * GIoU = IoU - 比重
 ### 四、总结
-感觉DETR更重要的意义应当是让NLP任务和CV任务之间的协同融合变得更加值得期待，倒不是建立了更有效的目标检测新范式。主流的目标检测算法可以说是一种分类任务，而transfomer将目标检测任务转化为一个序列预测的任务，使用transformer编码-解码器结构和双边匹配的方法，由输入图像直接得到预测结果序列。
+感觉DETR更重要的意义应当是让NLP任务和CV任务之间的协同融合变得更加值得期待。主流的目标检测算法可以说是一种分类任务，而transfomer将目标检测任务转化为一个序列预测的任务，使用transformer编码-解码器结构和双边匹配的方法，由输入图像直接得到预测结果序列。
