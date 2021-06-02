@@ -45,7 +45,7 @@ DETR主要有两个部分：architecture和set prediction loss
 ![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/detrstruct.png)
 DETR先用CNN将输入图像embedding成一个二维表征，然后将二维表征转换成一维表征并结合positional encoding一起送入encoder，decoder将少量固定数量的已学习的object queries(可以理解为positional embeddings)和encoder的输出作为输入。最后将decoder得到的每个output embdding传递到一个共享的前馈网络(FFN)，该网络可以预测一个检测结果(包括类和边框)或着“没有目标”的类。
 ##### 1.1 Transformer
-![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic10.png)
+![avater](https://github.com/Howdy-Personally/Seminar-June-2nd/blob/main/pic/pic10.jpg)
 ##### 1.1.1 Encoder
 将Backbone输出的feature map转换成一维表征，得到 特征图，然后结合positional encoding作为Encoder的输入。每个Encoder都由Multi-Head Self-Attention和FFN组成。
 和Transformer Encoder不同的是，因为Encoder具有位置不变性，DETR将positional encoding添加到每一个Multi-Head Self-Attention中，来保证目标检测的位置敏感性。
